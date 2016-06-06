@@ -1,0 +1,54 @@
+dnf instead of yum
+
+PRE REQS
+dnf install python-pip
+dnf install -y nodejs
+dnf install git-all
+dnf install ncurses-devel
+dnf install gcc
+dnf install tmux
+dnf install node-gyp
+
+INSTALLING ON FEDORA
+git clone https://github.com/c9/core sdk
+cd sdk
+./scripts/install-sdk.sh
+
+START CLOUD 9 INSTANCE
+/opt/sdk/node server.js -p 8080 -a
+
+INSTALLING DOCKER on FEDORA
+*dnf update
+	Option 1 
+	tee /etc/yum.repos.d/docker.repo <<-'EOF'
+		[dockerrepo]
+		name=Docker Repository
+		baseurl=https://yum.dockerproject.org/repo/main/fedora/$releasever/
+		enabled=1
+		gpgcheck=1
+		gpgkey=https://yum.dockerproject.org/gpg
+		EOF
+	Option 2
+		curl -fsSL https://get.docker.com/ | sh
+dnf install docker-engine
+systemctl start docker
+
+INSTALLING ANSIBLE
+git clone git://github.com/ansible/ansible.git --recursive
+cd ./ansible
+pip install --upgrade pip
+dnf install python-devel
+dnf install libffi-devel
+pip install paramiko PyYAML Jinja2 httplib2 six
+source ./hacking/env-setup
+make install
+****
+echo "127.0.0.1" > ~/ansible_hosts
+export ANSIBLE_INVENTORY=~/ansible_hosts
+
+UPDATING ANSIBLE
+git pull --rebase
+git submodule update --init --recursive
+
+SET HOSTNAME
+hostnamectl set-hostname --static "YOUR-HOSTNAME-HERE"
