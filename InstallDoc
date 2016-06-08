@@ -14,8 +14,8 @@ git clone https://github.com/c9/core sdk
 cd sdk
 ./scripts/install-sdk.sh
 
-START CLOUD 9 INSTANCE
-/opt/sdk/node server.js -p 8080 -a
+START CLOUD 9 INSTANCEthe colon is necessary - https://cloud9-sdk.readme.io/docs/running-the-sdk
+/opt/sdk/node server.js -p 8080 -l 0.0.0.0 -a :
 
 INSTALLING DOCKER on FEDORA
 *dnf update
